@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Creando nodos</title>
+</head>
+
+<body>
+    <p>Hola, esto es un párrafo</p>
+    <p>Hola, esto es un párrafo</p>
+    <!--    Hay muchos tipos, también hay x ej text area que es más grande, en este caso el tipo será text-->
+    <input type="text">
+    <input type="button" value="Haz click aquí" onclick="document.body.style='background-color:blue'">
+    <script>
+        //vamos a crear una etiqeuta párrrafo en memoria.
+        var parrafo = document.createElement("p");
+        //vamos a crear texto
+        var texto = document.createTextNode('Este es el texto del párrafo')
+            //colocar el texto dentro del párrafo
+        parrafo.appendChild(texto)
+            //colocar el párrafo en el body
+        document.body.appendChild(parrafo)
+        document.write('Esto es una prueba <br>')
+        document.write('Esto es una prueba')
+        var textbox = document.createElement("input")
+        var value
+    </script>
+</body>
+
+</html>
