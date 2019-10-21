@@ -1,0 +1,28 @@
+$('a.external:first'); 
+
+a = es la etiqueta 
+external = al estar detras del punto es la clase del html
+first= está detrás de los dos puntos, sería el pseudo selector
+
+cuando algo esta tras una almohadilla selecciona un id de html
+: es como una etiqueta inteligente 
+
+con los [] capturas el atributo
+Cuando utilizas un parámetro es un setter cuando no hay parámtro es un getter
+
+dentro del html el id por ejemplo sería un atributo
+Todo lo wur mrtsmod dentro de una etiqueta son más atributos ya sean de css o lo que sea , href etc , target="_blanc" se abre otra ventana 
+attr es un metodo genérico
+
+parent es un contenedor
+closet es para coger el elemnto mas cercano a algo ese algo es lo que va entre () tras el closet 
+ 
+
+algo visible un div por ejemplo será visible cuando la altura sea superior a  0
+
+ul: unsorted list  es una lista desordenada 
+ol: lista ordenada ( te la numera)
+
+for each: Indice elemento(HTML), también puede coger CSS utilizando un método
+rgb: Es un formato de colores de css   rojo verde azul    255 es el máximo de cada color
+rgba: es lo mismo pero con opacidad
