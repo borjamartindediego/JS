@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<!--La primera etiqueta significa que esto es HTML5-->
+<html lang="en">
+<!--Todo lo que está en verde ( en otros editores puede cambiar el color) es un atributo del elemento ( el nodo element) -->
+<!--en: significa english, se usa para los buscadores ( ya cada vez menos) es para que google identifique el idioma pero si luego esta en español, te la muestra igual, ya casi nadie lo respeta-->
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mi segundo ejercicio</title>
+</head>
+
+<body>
+    <script>
+        var cad = prompt('¿Cómo te llamas?')
+        document.write('hola ' + cad)
+    </script>
+</body>
+
+</html>
