@@ -1,0 +1,62 @@
+LO que haya encontrado lo va metiendo al ultimo valor de la lista
+
+
+<script>
+  	// Se lanza el evento al aterrizar en cualquier URL que contenga el parametro "int"
+	$(function(){
+    	if(document.URL.indexOf("int=") != -1){
+       		var campaign = document.URL.split("int=")[1].split("&")[0];
+        	_gaq.push(['_trackEvent','Banners', campaign]);
+    	}
+	});
+
+
+
+
+
+gap.push vale para ir metiendo valores al array al final del mismo, es como un array que tiene dentro otros arrays 
+la variable file con el this se rellena con el valor en el que se ha hecho click 
+href$ que termine con 
+
+    // Click en documentos con extension ".pdf"
+    $("a[href$='.pdf']").click(function(){
+      var file = $(this).attr('href');
+      _gaq.push(['_trackEvent', 'Descargas', 'PDF', file]);
+    });
+
+
+HREF^ QUE EMPIECE CON    CUANDO HAGA CLICK SE DISPARA EL CODIGO
+CADA VEZ QUE HAYA UNA / SE VA A SEPARAR EL DOMINIO DE LA BARRA DEL ARCHIVO 
+VA A COGER EL VALOR DE LA LISTA [2] QUE SERA RL 3 VALOR EN LA URL
+SI EN LA RUTA NO ESTÁ BARCELO, LO GUARDA EN LA LISTA (EL TERCER FACTOR), SI NO EXISTIERA EN LA URL TE DARÍA UNDEFINED 
+
+
+
+  	// Enlaces de salida (http)
+	$("a[href^='http:']").click(function(){
+      var web = $(this).attr("href").split('/')[2];
+
+
+
+
+POP TE QUITAR EL ULTIMO ELEMENTO DEL ARRAY
+PUSH TE LO PONE EN EL FINAL
+SHIFT TE QUITA EL PRIMERO
+indexOf nos vale para bucar dentro del array
+cuando te da el resultado -1 es que no te lo ha encontrado
+
+
+      var link = $(this).attr("href");
+      if(web.indexOf("www.barcelo.com") == -1){
+      	_gaq.push(['_trackEvent', 'Exit Links', web, link]);
+      }
+	});
+	// Enlaces de salida seguros (https)
+	$("a[href^='https:']").click(function(){
+      var web = $(this).attr("href").split('/')[2];
+        var link = $(this).attr("href");
+      if(web.indexOf("www.barcelo.com") == -1){
+      	_gaq.push(['_trackEvent', 'Exit Links', web, link]);
+      }
+	});
+</script>
