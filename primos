@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Numero primo</title>
+</head> var a = 0 input type= "int" for (var i=0; i=int; a++) {if int % i == 0, a= a+1 if a!=2, document.write('no es primo), else ('es primo')}
+
+<body> document.write('') </body>
+
+</html>
