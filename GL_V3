@@ -1,0 +1,103 @@
+(function(){
+    //This creates a self contained function
+    var geolock = {
+        checkedCountries : [],
+        //Will contain all the countries that have a video in it.
+        results: [],
+        options : {
+            countries : ["AU","CX","CC","CK","FJ","PF","TF","HM","KI","MH","FM","NR","NC","NZ","NU","MP","PW","PG","PN","WS","SB","GS","TL","TK","TO","TV","VU","WF","AX","AL","AD","AM","AT","BY","BE","BA","BG","HR","CY","CZ","DK","EE","FO","FI","FR","GE","DE","GI","GR","GL","GG","VA","HU","IS","IE","IM","IT","JE","LV","LI","LT","LU","MK","MT","MD","MC","ME","NL","NF","NO","PL","PT","RO","SM","RS","SK","SI","ES","SJ","SE","CH","UA","GB","RU","AZ","BD","BT","IO","BN","KH","CN","HK","IN","ID","JP","KZ","KP","KR","KG","LA","MO","MY","MV","MN","MM","NP","PK","PH","SG","LK","TW","TJ","TH","TR","TM","UZ","VN","AF","DZ","BH","EG","IR","IQ","IL","JO","KW","LB","LY","MA","OM","PS","QA","SA","SY","TN","AE","EH","YE","AO","BJ","BW","BF","BI","CV","CM","CF","KM","TD","CG","CD","CI","DJ","GQ","ER","ET","GA","GM","GH","GN","GW","KE","LS","LR","MG","MW","ML","MR","MU","YT","MZ","NA","NE","NG","RE","RW","SH","ST","SN","SC","SL","SO","ZA","SS","SD","SZ","TZ","TG","UG","ZM","ZW","AS","GU","PR","UM","US","VI","CA","PM","AI","AG","AW","BS","BB","BZ","BM","BQ","KY","CR","CU","CW","DM","DO","SV","GD","GP","GT","HT","HN","JM","MQ","MX","MS","NI","PA","BL","KN","LC","MF","VC","SX","TT","TC","VG","AR","BO","BR","CL","CO","EC","FK","GF","GY","PY","PE","SR","UY","VE","AQ","BV"],
+            element: 'prime-video-box-container',
+            //Buscamos el elemento prime-video-box-container en la pagina actual window.location.href
+            url: window.location.href,
+            outputMethod: 'console' /* 'console', 'json', 'alert' */
+        },
+        //init es una clave, podriamos llamarlo como queramos, metemos la funcion anonima en la variable init 
+        init: function() {
+            //Con los : separamos clave y valor 
+            //For each country, run the checkCountryPage function
+            //imprime por la consola de google ( del navegador) 
+            //lo que imprime corresponde a la linea 8 
+            console.log(geolock.options.countries);
+            //Para cada pais chequea checkCountryPage --> Que es checkCountryPage???
+            // => Equivalente a no poner el nombre la función  , es como un return , es como si le pidiesemos dcomo retorno las siguientes lineas
+            // ¿¿¿¿¿¿¿¿¿¿ forEach(country ????????)  The array name is countries
+            geolock.options.countries.forEach(country => {
+                geolock.checkCountryPage(country);
+            });
+        },
+        onComplete: function() {
+            //Como no vamos a reutilizar la función la declaramos anónima 
+            var notShowing = [];
+            //If a country has been checked, but is ¿¿¿¿¿¿not in the results array?????, then it does not contain video.
+            //EL array notShowing se va a rellenar con los paises que no contengan el video
+            geolock.options.countries.forEach((country) => {
+                //????????????????????????? What is includes???????
+                //includes --> Does it mean something similar to "for i in lista"
+                         // determina si una matriz incluye un determinado elemento,
+                if(!geolock.results.includes(country)){
+                    //DESDE EL MISMO OBJETO SE LLAMA A SI MISMO
+                    //Si geolock.results incluye el pais, push the country into notShowing array 
+                    notShowing.push(country);
+                }
+            });
+            geolock.outputResults(notShowing);
+            
+        },
+        outputResults(notShowing){
+            if(geolock.options.outputMethod == 'console'){
+                console.log('Is showing:', geolock.results);
+                console.log('Is not showing:', notShowing);
+            }
+            else if(geolock.options.outputMethod == 'json'){
+                console.log("Is showing:", JSON.stringify(geolock.results));
+                console.log("Is not showing:", JSON.stringify(notShowing));
+            }
+            else{
+                alert("OlympicChecker finished, video is visible in these countries: " + geolock.results.join(', ')+". Not available in these countries: "+notShowing.join(", "));
+            }
+        },
+        checkCountryPage(country){
+            //Add unique request id to each request to force a new request, else request will be served from cache since URL would be the same.
+            var uniqueRequestId = Math.random().toString(36).substr(2, 9);
+            //https://en.wikipedia.org/wiki/Base36  2,9 is used to take out two first carac (0 and . ) 
+            var request = fetch(this.options.url+'?uniqueRequestId='+uniqueRequestId, {
+                headers: {
+                    'x-country-code': country
+                }
+            })
+            //Get the html of the response
+            //.then(response => response.text());
+            request.then((response) => {
+                if(response.status == 200){
+                    response.text().then(function(html){
+                        geolock.checkedCountries.push(country);
+                        //If the string defined with the variable geolock.options.element exists in the html,
+                        //Then I known that the page contains video.
+                        if(html.includes(geolock.options.element)){
+                            //Put the country into the results array
+                            geolock.results.push(country);
+                        }
+                        //If the amount of countries that have been checked is equal to the amount of countries that I need to check, run the finishing function
+                        if(geolock.checkedCountries.length == geolock.options.countries.length){
+                            geolock.onComplete();
+                        }
+                        else{
+                            console.log("Progress: "+geolock.checkedCountries.length+"/"+geolock.options.countries.length)
+                        }
+                    });
+                }
+                else {
+                    setTimeout(function(){
+                        geolock.checkCountryPage(country);
+                        console.log("Retrying " + country);
+                    }, 100);
+                }
+            });
+        },
+    };
+    geolock.init();
+    window.geolock = geolock;
+})();
+
+//EN PROGRAMACIÓN FUNCIONAL, LA FUNCIÓN ES UN OBJETO
+//EN PROGRAMACIÓN FUNCIONAL SE TIENDE MUCHO AL USO DE FUNCIONES ANONIMAS 
