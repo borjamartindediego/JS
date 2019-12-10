@@ -9,7 +9,7 @@
             element: 'prime-video-box-container',
             //Buscamos el elemento prime-video-box-container en la pagina actual window.location.href
             url: window.location.href,
-            outputMethod: 'console' /* 'console', 'json', 'alert' */
+            outputMethod: 'json' /* 'console', 'json', 'alert' */
         },
         //init es una clave, podriamos llamarlo como queramos, metemos la funcion anonima en la variable init 
         init: function() {
